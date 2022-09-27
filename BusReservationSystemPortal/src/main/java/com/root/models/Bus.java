@@ -3,10 +3,16 @@ package com.root.models;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+@Entity
 public class Bus {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer busId;
 	private String busName;
 	private String driverName;
