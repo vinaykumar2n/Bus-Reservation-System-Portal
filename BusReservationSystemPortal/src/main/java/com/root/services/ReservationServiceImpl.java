@@ -1,6 +1,5 @@
 package com.root.services;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +51,9 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public List<Reservation> viewAllReservation() {
+	public List<Reservation> viewAllReservation() throws ReservationException {
 		List<Reservation> reservationList = reservationDao.findAll();
-		if(reservationList.isEmpty()) new ReservationException("No reservation found!");
+		if(reservationList.isEmpty()) throw new ReservationException("No reservation found!");
 		return reservationList;
 	}
 

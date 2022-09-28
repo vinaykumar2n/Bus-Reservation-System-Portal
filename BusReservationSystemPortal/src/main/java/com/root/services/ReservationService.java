@@ -16,6 +16,6 @@ public interface ReservationService {
 	
 	public Reservation viewReservation(Integer reservationId) throws ReservationException;
 	
-	public List<Reservation> viewAllReservation();
+	public List<Reservation> viewAllReservation()throws ReservationException;
 	
 }
