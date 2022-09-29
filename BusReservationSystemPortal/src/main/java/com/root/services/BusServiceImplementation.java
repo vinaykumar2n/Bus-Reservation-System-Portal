@@ -1,8 +1,8 @@
 package com.root.services;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +18,6 @@ public class BusServiceImplementation implements BusService{
 	
 	@Autowired
 	private BusDao busDao;
-	
-//	@Autowired
-//	private RouteService routeService;
 	
 	@Autowired
 	private RouteDao routeDao;
@@ -55,6 +52,7 @@ public class BusServiceImplementation implements BusService{
 	public Bus deleteBus(int busId) throws BusException {
 		
 		Optional<Bus> bus=busDao.findById(busId);
+		
 		if(bus.isPresent()) {
 			Bus existingBus = bus.get();
 			busDao.delete(existingBus);
@@ -66,9 +64,14 @@ public class BusServiceImplementation implements BusService{
 	}
 
 	@Override
-	public List<Bus> viewBusByType() throws BusException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Bus> viewBusByType(String BusType) throws BusException {
+		List<Bus> listOfBusType = busDao.findByBusType(BusType);
+		
+		if(listOfBusType.size() >0)
+			return listOfBusType;
+		else
+			throw new BusException("There is no bus of type "+ BusType);
+	
 	}
 
 	@Override

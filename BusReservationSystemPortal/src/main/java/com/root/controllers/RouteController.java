@@ -35,7 +35,7 @@ public class RouteController {
 	
 	
 	@DeleteMapping("/deleteRoute/{routeId}")
-	public ResponseEntity<Route> DeleteRoute(@Valid @PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> DeleteRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
 		
 		Route route = routeService.deleteRoute(routeId);
 		
