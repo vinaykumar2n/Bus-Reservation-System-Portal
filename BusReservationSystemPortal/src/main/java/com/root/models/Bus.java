@@ -27,9 +27,7 @@ public class Bus {
 	private String busType;
 	private String routeFrom;
 	private String routeTo;
-	@JsonFormat(pattern="HH:mm")
 	private LocalTime arrivalTime;
-	@JsonFormat(pattern="HH:mm")
 	private LocalTime departureTime;
 	private Integer seats;
 	private Integer availableSeats;
