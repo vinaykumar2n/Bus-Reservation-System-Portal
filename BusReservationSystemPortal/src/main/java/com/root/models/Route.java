@@ -7,12 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Min;
 
 @Entity
 public class Route {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Min(value = 1,message = "value should be minnimum 1 or greater than 1")
 	private Integer routeId;
 	private String routeFrom;
 	private String routeTo;
@@ -22,10 +24,8 @@ public class Route {
 	private List<Bus> busList;
 	
 	public Route() {
-		// TODO Auto-generated constructor stub
+		
 	}
-	
-	
 
 	public Route(Integer routeId, String routeFrom, String routeTo, Integer distance, List<Bus> busList) {
 		super();
@@ -35,8 +35,6 @@ public class Route {
 		this.distance = distance;
 		this.busList = busList;
 	}
-
-
 
 	public Integer getRouteId() {
 		return routeId;

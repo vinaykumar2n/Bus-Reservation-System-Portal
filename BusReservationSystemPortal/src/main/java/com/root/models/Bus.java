@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Bus {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer busId;
@@ -28,7 +29,7 @@ public class Bus {
 	private List<Reservation> reservations;
 	
 	public Bus() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Bus(Integer busId, String busName, String driverName, String busType, String routeFrom, String routeTo,
