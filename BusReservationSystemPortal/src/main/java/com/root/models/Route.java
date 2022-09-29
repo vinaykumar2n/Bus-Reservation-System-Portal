@@ -1,12 +1,16 @@
 package com.root.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +29,8 @@ public class Route {
 	private String routeTo;
 	private Integer distance;
 	
-	@OneToMany
-	private List<Bus> busList;
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
+	private List<Bus> busList = new ArrayList<>();
 	
 }

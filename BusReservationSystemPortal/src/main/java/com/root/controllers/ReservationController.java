@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.root.DTO.ReservationDTO;
+import com.root.exceptions.BusException;
 import com.root.exceptions.ReservationException;
 import com.root.models.Reservation;
 import com.root.services.ReservationService;
@@ -25,8 +27,8 @@ public class ReservationController {
 	private ReservationService reservationService;
 	
 	@PostMapping("/reservation")
-	public ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation ) throws ReservationException{
-		Reservation savedReservation =reservationService.addReservation(reservation);
+	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO ) throws ReservationException, BusException{
+		Reservation savedReservation =reservationService.addReservation(reservationDTO);
 		return new ResponseEntity<Reservation>(savedReservation,HttpStatus.ACCEPTED);
 		
 	}
