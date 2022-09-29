@@ -8,30 +8,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 @Entity
-public class UserSession {
+public class AdminSession {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
 	
 	@Column(unique = true)
-	private Integer userLoginId;
+	private Integer adminId;
 	
 	
 	private LocalDateTime dateTime;
 	private String uuid;
 	
 	
-	public UserSession(Integer userLoginId, LocalDateTime dateTime, String uuid) {
+	public AdminSession(Integer adminId, LocalDateTime dateTime, String uuid) {
 		super();
 	
-		this.userLoginId = userLoginId;
+		this.adminId = adminId;
 		this.dateTime = dateTime;
 		this.uuid = uuid;
 	}
 	
 	
-public UserSession() {
+public AdminSession() {
 	// TODO Auto-generated constructor stub
 }
 
@@ -45,13 +45,13 @@ public UserSession() {
 	}
 
 
-	public Integer getUserLoginId() {
-		return userLoginId;
+	public Integer getadminId() {
+		return adminId;
 	}
 
 
-	public void setUserLoginId(Integer userLoginId) {
-		this.userLoginId = userLoginId;
+	public void setadminId(Integer adminId) {
+		this.adminId = adminId;
 	}
 
 

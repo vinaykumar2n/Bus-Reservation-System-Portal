@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.root.DTO.AdminDTO;
 import com.root.DTO.UserDTO;
 import com.root.models.UserSession;
+import com.root.services.AdminAuthentication;
 import com.root.services.UserAuthentication;
 import com.root.services.UserService;
 
@@ -21,8 +23,12 @@ public class AuthenticationController {
 	@Autowired
 	private UserAuthentication userLogin;
 
+	@Autowired
+	private AdminAuthentication adminLogin;
+	
+	//user Login
 	@PostMapping("/login")
-	public ResponseEntity<String> customerLogin(@RequestBody UserDTO userDTO) {
+	public ResponseEntity<String> userLogin(@RequestBody UserDTO userDTO) {
 		
 		  String userSession =  userLogin.login(userDTO);
 		  System.out.println("Logged in ...");
@@ -30,15 +36,36 @@ public class AuthenticationController {
 		  return new ResponseEntity<String>(userSession,HttpStatus.ACCEPTED);
 	}
 	
-	@PatchMapping("/logout")
-	public ResponseEntity<String> customerLogout(@RequestParam(required = false) String key) {
+	//admin Login
+	@PostMapping("/adminLogin")
+	public ResponseEntity<String> adminLogin(@RequestBody AdminDTO adminDTO) {
 		
+		  String adminSession =  adminLogin.login(adminDTO);
+		  System.out.println("Admin Logged in ...");
 		  
-			
-		  String user =  userLogin.logOut(key) +"logged out..";
+		  return new ResponseEntity<String>(adminSession,HttpStatus.ACCEPTED);
+	}
+	
+	//user logout
+	@PatchMapping("/logout")
+	public ResponseEntity<String> userLogout(@RequestParam(required = false) String key) {
+		
+		  		
+		  String user =  userLogin.logOut(key);
 		  
 		  return new ResponseEntity<String>(user,HttpStatus.ACCEPTED);
 	}
+	
+	//admin Logout
+	@PatchMapping("/adminLogout")
+	public ResponseEntity<String> adminLogout(@RequestParam(required = false) String key) {
+		
+			
+		  String admin =  adminLogin.logOut(key);
+		  
+		  return new ResponseEntity<String>(admin,HttpStatus.ACCEPTED);
+	}
+	
 	
 	
 

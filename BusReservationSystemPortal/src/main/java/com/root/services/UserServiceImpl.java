@@ -20,6 +20,8 @@ public class UserServiceImpl implements UserService {
 		
 		Optional<User> opt = userDao.findByUserName(user.getUserName());
 		
+		
+		
 		   if(opt.isPresent()){
 			  System.out.println("User Already Exist"); 
 		   }
