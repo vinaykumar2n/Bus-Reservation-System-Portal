@@ -52,9 +52,6 @@ public class UserAuthenticationImpl implements UserAuthentication{
 	    	throw new InvalidDetailsException("Invalid Password");
 	    }
 		
-		
-		
-		
 	}
 
 	

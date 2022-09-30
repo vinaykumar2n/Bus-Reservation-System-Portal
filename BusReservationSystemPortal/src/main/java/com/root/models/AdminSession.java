@@ -7,6 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AdminSession {
 	
@@ -30,49 +38,6 @@ public class AdminSession {
 		this.uuid = uuid;
 	}
 	
-	
-public AdminSession() {
-	// TODO Auto-generated constructor stub
-}
-
-	public Integer getId() {
-		return Id;
-	}
-
-
-	public void setId(Integer id) {
-		Id = id;
-	}
-
-
-	public Integer getadminId() {
-		return adminId;
-	}
-
-
-	public void setadminId(Integer adminId) {
-		this.adminId = adminId;
-	}
-
-
-	public LocalDateTime getDateTime() {
-		return dateTime;
-	}
-
-
-	public void setDateTime(LocalDateTime dateTime) {
-		this.dateTime = dateTime;
-	}
-
-
-	public String getUuid() {
-		return uuid;
-	}
-
-
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
 	
 	
 

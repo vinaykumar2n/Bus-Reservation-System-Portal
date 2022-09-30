@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -16,8 +17,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Data
 @Entity
-//@Getter
-//@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -41,69 +40,10 @@ public class User {
 //	@Pattern(regexp = "[0-9]{10}", message = "Mobile No is Invalid")
 	private Long contact;
 	
-//	@Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$")
+	@Email
 	private String email;
 
-//	public Integer getUserLoginId() {
-//		return userLoginId;
-//	}
-//
-//	public void setUserLoginId(Integer userLoginId) {
-//		this.userLoginId = userLoginId;
-//	}
-//
-//	public String getUserName() {
-//		return userName;
-//	}
-//
-//	public void setUserName(String userName) {
-//		this.userName = userName;
-//	}
-//
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
-//
-//	public String getFirstName() {
-//		return firstName;
-//	}
-//
-//	public void setFirstName(String firstName) {
-//		this.firstName = firstName;
-//	}
-//
-//	public String getLastName() {
-//		return lastName;
-//	}
-//
-//	public void setLastName(String lastName) {
-//		this.lastName = lastName;
-//	}
-//
-//	public Long getContact() {
-//		return contact;
-//	}
-//
-//	public void setContact(Long contact) {
-//		this.contact = contact;
-//	}
-//
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
-	
-//	@OneToOne (cascade = CascadeType.ALL)
-//	private Reservation reservation;
-	
-	
+
 	
 	
 }
