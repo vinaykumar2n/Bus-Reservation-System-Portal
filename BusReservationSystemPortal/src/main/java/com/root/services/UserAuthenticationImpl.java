@@ -38,7 +38,7 @@ public class UserAuthenticationImpl implements UserAuthentication{
 		
 		User user1 = opt.get();
 		Integer userId1 = user1.getUserLoginId();
-	    Optional< UserSession> currentUser =	 sessionDao.findByUserLoginId(userId1);
+	    Optional< UserSession> currentUser =sessionDao.findByUserLoginId(userId1);
 		
 	   
 	     if(user1.getPassword().equals(userDTO.getPassword())){
@@ -54,9 +54,6 @@ public class UserAuthenticationImpl implements UserAuthentication{
 	    else {
 	    	throw new InvalidDetailsException("Invalid Password");
 	    }
-		
-		
-		
 		
 	}
 	

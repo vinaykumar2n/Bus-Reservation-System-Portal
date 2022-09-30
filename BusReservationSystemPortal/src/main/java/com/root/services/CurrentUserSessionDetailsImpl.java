@@ -25,9 +25,6 @@ public class CurrentUserSessionDetailsImpl implements CurrentUserSessionDetails 
 		   
 		   return opt.get();
 		
-		
-		
-		
 	}
 
 }

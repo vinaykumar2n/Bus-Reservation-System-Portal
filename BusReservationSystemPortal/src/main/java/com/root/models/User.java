@@ -6,19 +6,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class User {
 	
 	@Id
@@ -37,16 +36,13 @@ public class User {
 	
 	private String lastName;
 	
+
 //	@Pattern(regexp = "[0-9]{10}", message = "Mobile No is Invalid")
 	private Long contact;
 	
-//	@Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$")
+	@Email
 	private String email;
-	
-//	@OneToOne (cascade = CascadeType.ALL)
-//	private Reservation reservation;
-	
-	
-	
+
+
 	
 }
