@@ -12,13 +12,12 @@ import javax.validation.constraints.Pattern;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 @Data
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class User {
 	
 	@Id
@@ -37,6 +36,7 @@ public class User {
 	
 	private String lastName;
 	
+
 //	@Pattern(regexp = "[0-9]{10}", message = "Mobile No is Invalid")
 	private Long contact;
 	
@@ -44,6 +44,5 @@ public class User {
 	private String email;
 
 
-	
 	
 }

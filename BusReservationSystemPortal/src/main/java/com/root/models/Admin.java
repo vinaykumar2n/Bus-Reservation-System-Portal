@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +24,7 @@ public class Admin {
 	@NotNull(message = "username should not be null")
 	private String adminUsername;
 	
+
 	@NotNull(message="password should not be null")
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$")
 	private String adminPassword;
@@ -32,3 +32,7 @@ public class Admin {
 	
 	
 }
+
+
+}
+
