@@ -1,8 +1,9 @@
 package com.root.controllers;
 
 import java.util.List;
-import java.util.Set;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class BusController {
 	private BusService busService;
 	
 	@PostMapping("/bus")
-	public ResponseEntity<Bus> addBus( @RequestBody Bus bus) throws BusException{
+	public ResponseEntity<Bus> addBus(@RequestBody Bus bus) throws BusException{
 		
 		Bus newBus=busService.addBus(bus);
 		
@@ -33,7 +34,7 @@ public class BusController {
 	}
 	
 	@PutMapping("/updateBus")
-	public ResponseEntity<Bus> updateBus(@Valid @RequestBody Bus bus) throws BusException{
+	public ResponseEntity<Bus> updateBus(@RequestBody Bus bus) throws BusException{
 		
 		Bus newBus=busService.updateBus(bus);
 		
@@ -41,7 +42,7 @@ public class BusController {
 	}
 	
 	@DeleteMapping("/bus/{busId}")
-	public ResponseEntity<Bus> DeleteBus(@Valid @PathVariable("busId") Integer busId) throws BusException{
+	public ResponseEntity<Bus> DeleteBus(@PathVariable("busId") Integer busId) throws BusException{
 		
 		Bus bus=busService.deleteBus(busId);
 		
@@ -56,3 +57,4 @@ public class BusController {
 		return new ResponseEntity<List<Bus>>(listOfBuses,HttpStatus.OK);
 	}
 }
+

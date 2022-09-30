@@ -41,6 +41,14 @@ public class RouteServiceImplemetation implements RouteService{
 		
 		Optional<Route> existedRoute = routeDao.findById(route.getRouteId());
 		if(existedRoute.isPresent()) {
+			
+			Route presentRoute = existedRoute.get();
+			List<Bus> busList = presentRoute.getBusList();
+			for(Bus bus: busList) {
+				bus.setRouteFrom(route.getRouteFrom());
+				bus.setRouteTo(route.getRouteTo());
+			}
+			route.setBusList(busList);
 			return routeDao.save(route);
 		}
 		else

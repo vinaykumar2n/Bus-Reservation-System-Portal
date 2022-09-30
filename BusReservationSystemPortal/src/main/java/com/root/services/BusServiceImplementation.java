@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.root.exceptions.BusException;
+import com.root.exceptions.RouteException;
 import com.root.models.Bus;
 import com.root.models.Route;
 import com.root.repository.BusDao;
@@ -26,9 +27,10 @@ public class BusServiceImplementation implements BusService{
 	public Bus addBus(Bus bus) throws BusException {
 		
 		Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
-
+		
 		if(bus != null) {
 			route.getBusList().add(bus);
+			bus.setRoute(route);
 			return busDao.save(bus);
 		}
 		else
@@ -41,6 +43,9 @@ public class BusServiceImplementation implements BusService{
 		Optional<Bus> existingBus=busDao.findById(bus.getBusId());
 		
 		if(existingBus.isPresent()) {
+			Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
+			if(route == null) throw new BusException("Invalid route!");
+			bus.setRoute(route);
 			return busDao.save(bus);
 		}
 		else

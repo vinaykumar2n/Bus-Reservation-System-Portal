@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.root.exceptions.BusException;
+import com.root.exceptions.RouteException;
 import com.root.models.Bus;
 
 public interface BusService {

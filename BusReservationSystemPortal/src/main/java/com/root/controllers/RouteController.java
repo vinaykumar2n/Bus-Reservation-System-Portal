@@ -1,5 +1,6 @@
 package com.root.controllers;
 
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -60,7 +61,7 @@ public class RouteController {
 
 	
 	@GetMapping("/route/{routeId}")
-	public ResponseEntity<Route> getRouteById(@Valid @PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> getRouteById(@PathVariable("routeId") Integer routeId) throws RouteException{
 		
 		Route route = routeService.viewRoute(routeId);
 		

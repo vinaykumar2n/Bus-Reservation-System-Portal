@@ -1,5 +1,6 @@
 package com.root.DTO;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BusDTO {
-
-	private Integer busId;
-	private String routeFrom;
-	private String routeTo;
+public class ReservationDTO {
 	
+	private String source;
+	private String destination;
+	private Integer noOfSeatsToBook;
+	
+	private BusDTO busDTO;
 	
 }
