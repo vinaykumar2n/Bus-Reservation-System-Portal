@@ -25,10 +25,8 @@ public class AdminSession {
 	@Column(unique = true)
 	private Integer adminId;
 	
-	
 	private LocalDateTime dateTime;
-	private String uuid;
-	
+	private String uuid;	
 	
 	public AdminSession(Integer adminId, LocalDateTime dateTime, String uuid) {
 		super();
@@ -37,8 +35,4 @@ public class AdminSession {
 		this.dateTime = dateTime;
 		this.uuid = uuid;
 	}
-	
-	
-	
-
 }

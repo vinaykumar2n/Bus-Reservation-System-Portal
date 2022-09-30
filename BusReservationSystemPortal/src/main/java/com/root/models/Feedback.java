@@ -1,18 +1,13 @@
 package com.root.models;
-
 import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Data
 @NoArgsConstructor
@@ -34,7 +29,4 @@ public class Feedback {
 	
 	@OneToOne
 	private Bus bus;
-	
-	
-	
 }

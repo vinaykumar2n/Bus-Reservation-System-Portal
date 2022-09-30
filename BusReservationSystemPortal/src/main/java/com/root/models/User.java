@@ -36,13 +36,9 @@ public class User {
 	
 	private String lastName;
 	
-
 //	@Pattern(regexp = "[0-9]{10}", message = "Mobile No is Invalid")
 	private Long contact;
 	
 	@Email
 	private String email;
-
-
-	
 }
