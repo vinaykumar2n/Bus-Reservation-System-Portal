@@ -28,4 +28,10 @@ public class Admin {
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$")
 	private String adminPassword;
 	
+
 }
+
+	
+	
+}
+
