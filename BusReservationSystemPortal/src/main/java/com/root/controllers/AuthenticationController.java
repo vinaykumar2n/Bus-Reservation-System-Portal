@@ -35,7 +35,7 @@ public class AuthenticationController {
 		
 		  
 			
-		  String user =  userLogin.logOut(key) +"logged out..";
+		  String user =  userLogin.logOut(key);
 		  
 		  return new ResponseEntity<String>(user,HttpStatus.ACCEPTED);
 	}

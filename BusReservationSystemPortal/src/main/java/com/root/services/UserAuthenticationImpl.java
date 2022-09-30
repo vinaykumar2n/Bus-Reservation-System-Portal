@@ -22,7 +22,10 @@ public class UserAuthenticationImpl implements UserAuthentication{
 	@Autowired
 	private UserDao userDao;
 	@Autowired
-	private CurrentUserSessionDetails currentUser;
+	private CurrentUserSessionDetailsImpl currentUser;
+	
+
+	
 	
 	public  String login(UserDTO userDTO) {
 
@@ -37,16 +40,16 @@ public class UserAuthenticationImpl implements UserAuthentication{
 		Integer userId1 = user1.getUserLoginId();
 	    Optional< UserSession> currentUser =	 sessionDao.findByUserLoginId(userId1);
 		
-	    
+	   
 	     if(user1.getPassword().equals(userDTO.getPassword())){
 	    	
 	    	String key = RandomString.make(10);
-	    	
+	    
 	    	UserSession userSession = new UserSession(user1.getUserLoginId(),LocalDateTime.now(),key);
 
 	          sessionDao.save(userSession);
 	         
-	         return userSession.toString();
+	         return userSession.toString()+" key: "+key;
 	    }
 	    else {
 	    	throw new InvalidDetailsException("Invalid Password");
@@ -56,11 +59,14 @@ public class UserAuthenticationImpl implements UserAuthentication{
 		
 		
 	}
+	
+	
 
 	
 	public String logOut(String key) {
 		
-		System.out.println("key: "+key);
+		
+		
 		
 		Optional<UserSession> currentUser =	sessionDao.findByUuid(key);
 		

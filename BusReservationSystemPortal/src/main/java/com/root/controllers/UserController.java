@@ -26,10 +26,10 @@ public class UserController {
 	}
 	
 	@PutMapping("/user")
-	public ResponseEntity<User>  updateUser(@RequestBody User user, @RequestBody(required = false)String key){
+	public ResponseEntity<User>  updateUser(@RequestBody User user){
 	
 		
-        User user1 = userService.updateUser(user,key);
+        User user1 = userService.updateUser(user);
 		
 		return new ResponseEntity<User>(user1, HttpStatus.OK);	
 		
