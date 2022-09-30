@@ -41,7 +41,7 @@ public class ReservationController {
 	}
 	
 	@DeleteMapping("/reservation/{id}")
-	public ResponseEntity<Reservation> deleteReservation(@PathVariable("id") Integer reservationId) throws ReservationException{
+	public ResponseEntity<Reservation> deleteReservation(@PathVariable("id") Integer reservationId) throws ReservationException, BusException{
 		Reservation deletedReservation = reservationService.deleteReservation(reservationId);
 		return new ResponseEntity<Reservation>(deletedReservation,HttpStatus.OK);
 	}

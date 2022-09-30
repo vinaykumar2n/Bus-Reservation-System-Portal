@@ -37,6 +37,13 @@ public class ReservationServiceImpl implements ReservationService{
 		
 		Bus bus = opt.orElseThrow(()-> new ReservationException("Invalid bus details!"));
 		
+		if(reservationDTO.getJourneyDate().isBefore(LocalDate.now())) throw new ReservationException("Please enter future date!");
+		
+		if(!bus.getBusJourneyDate().isEqual(reservationDTO.getJourneyDate())) throw new ReservationException("Bus is not available on "+reservationDTO.getJourneyDate());
+		
+		if(!reservationDTO.getSource().equalsIgnoreCase(bus.getRouteFrom()) || !reservationDTO.getDestination().equalsIgnoreCase(bus.getRouteTo()))
+			throw new ReservationException("Bus is not available on route : "+ reservationDTO.getSource()+" - "+reservationDTO.getDestination());
+		
 		int seatsAvailable = bus.getAvailableSeats();
 		if(seatsAvailable < reservationDTO.getNoOfSeatsToBook()) throw new ReservationException("Reservation Failed! Available seats: "+seatsAvailable);
 		
@@ -55,6 +62,7 @@ public class ReservationServiceImpl implements ReservationService{
 		reservation.setDestination(bus.getRouteTo());
 		reservation.setNoOfSeatsBooked(reservationDTO.getNoOfSeatsToBook());
 		reservation.setFare(bus.getFarePerSeat()*(reservationDTO.getNoOfSeatsToBook()));
+		reservation.setJourneyDate(reservationDTO.getJourneyDate());
 		
 		Reservation savedReservation = reservationDao.save(reservation);
 		if(savedReservation == null) throw new ReservationException("Could not reserve the seats");
@@ -71,10 +79,17 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
-	public Reservation deleteReservation(Integer reservationId) throws ReservationException {
+	public Reservation deleteReservation(Integer reservationId) throws ReservationException, BusException {
 		
 		Optional<Reservation> Opt = reservationDao.findById(reservationId);
 		Reservation foundReservation = Opt.orElseThrow(()-> new ReservationException("No reservation found!"));
+		Bus bus = foundReservation.getBus();
+		
+		if(foundReservation.getJourneyDate().isBefore(LocalDate.now())) throw new ReservationException("Cannot cancel! Journey completed.");
+		
+		bus.setAvailableSeats(bus.getAvailableSeats()+foundReservation.getNoOfSeatsBooked());
+		Bus updatedBus =busService.updateBus(bus);
+		
 		reservationDao.delete(foundReservation);
 		return foundReservation;
 	}

@@ -13,7 +13,7 @@ public interface ReservationService {
 	
 	public Reservation updateReservation(Reservation reservation) throws ReservationException;
 	
-	public Reservation deleteReservation(Integer reservationId) throws ReservationException;
+	public Reservation deleteReservation(Integer reservationId) throws ReservationException, BusException;
 	
 	public Reservation viewReservation(Integer reservationId) throws ReservationException;
 	
