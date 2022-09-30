@@ -9,13 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.root.DTO.ReservationDTO;
+import com.root.exceptions.AdminException;
 import com.root.exceptions.BusException;
 import com.root.exceptions.ReservationException;
-import com.root.exceptions.RouteException;
+import com.root.exceptions.UserException;
 import com.root.models.Bus;
+import com.root.models.CurrentAdminSession;
+import com.root.models.CurrentUserSession;
 import com.root.models.Reservation;
+import com.root.models.User;
 import com.root.repository.BusDao;
 import com.root.repository.ReservationDAO;
+import com.root.repository.UserDao;
+import com.root.repository.UserSessionDao;
 
 
 @Service
@@ -28,10 +34,22 @@ public class ReservationServiceImpl implements ReservationService{
 	private BusDao busDao;
 	
 	@Autowired
-	private BusService busService;
+	private UserSessionDao userSessionDao;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Override
-	public Reservation addReservation(ReservationDTO reservationDTO) throws ReservationException, BusException {
+	public Reservation addReservation(ReservationDTO reservationDTO, String key) throws ReservationException, BusException,UserException {
+		
+		CurrentUserSession loggedInUser= userSessionDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new UserException("Please provide a valid key to reserve seats!");
+		}
+		
+		User user = userDao.findById(loggedInUser.getUserId()).orElseThrow(()-> new UserException("User not found!"));
+		
 		
 		Optional<Bus> opt = busDao.findById(reservationDTO.getBusDTO().getBusId());
 		
@@ -51,7 +69,7 @@ public class ReservationServiceImpl implements ReservationService{
 		
 		bus.setAvailableSeats(seatsAvailable - reservationDTO.getNoOfSeatsToBook());
 		
-		Bus updatedBus =busService.updateBus(bus);
+		Bus updatedBus =busDao.save(bus);
 		
 		reservation.setBus(updatedBus);
 		
@@ -63,6 +81,8 @@ public class ReservationServiceImpl implements ReservationService{
 		reservation.setNoOfSeatsBooked(reservationDTO.getNoOfSeatsToBook());
 		reservation.setFare(bus.getFarePerSeat()*(reservationDTO.getNoOfSeatsToBook()));
 		reservation.setJourneyDate(reservationDTO.getJourneyDate());
+		
+		reservation.setUser(user);
 		
 		Reservation savedReservation = reservationDao.save(reservation);
 		if(savedReservation == null) throw new ReservationException("Could not reserve the seats");
@@ -88,7 +108,7 @@ public class ReservationServiceImpl implements ReservationService{
 		if(foundReservation.getJourneyDate().isBefore(LocalDate.now())) throw new ReservationException("Cannot cancel! Journey completed.");
 		
 		bus.setAvailableSeats(bus.getAvailableSeats()+foundReservation.getNoOfSeatsBooked());
-		Bus updatedBus =busService.updateBus(bus);
+		Bus updatedBus =busDao.save(bus);
 		
 		reservationDao.delete(foundReservation);
 		return foundReservation;
@@ -108,7 +128,6 @@ public class ReservationServiceImpl implements ReservationService{
 		return reservationList;
 	}
 
-	
 	
 	
 }

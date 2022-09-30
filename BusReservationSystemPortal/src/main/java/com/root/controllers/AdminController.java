@@ -1,5 +1,7 @@
 package com.root.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +22,16 @@ public class AdminController {
 	private AdminService adminService;
 	
 	
-	@PostMapping("/admins")
-	public ResponseEntity<Admin> saveAdmin(@RequestBody Admin admin) throws AdminException {
+	@PostMapping("/admin")
+	public ResponseEntity<Admin> saveAdmin(@Valid @RequestBody Admin admin) throws AdminException {
 		
 		Admin savedAdmin= adminService.createAdmin(admin);
 		
 		return new ResponseEntity<Admin>(savedAdmin,HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/admins")
-	public  ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin,@RequestParam(required = false) String key ) throws AdminException {
+	@PutMapping("/admin")
+	public  ResponseEntity<Admin> updateAdmin(@Valid @RequestBody Admin admin,@RequestParam(required = false) String key ) throws AdminException {
 		
 		Admin updatedAdmin= adminService.updateAdmin(admin, key);
 				

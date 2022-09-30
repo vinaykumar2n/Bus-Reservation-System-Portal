@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.root.DTO.ReservationDTO;
 import com.root.exceptions.BusException;
 import com.root.exceptions.ReservationException;
+import com.root.exceptions.UserException;
 import com.root.models.Reservation;
 import com.root.services.ReservationService;
 
@@ -27,18 +29,18 @@ public class ReservationController {
 	private ReservationService reservationService;
 	
 	@PostMapping("/reservation")
-	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO ) throws ReservationException, BusException{
-		Reservation savedReservation =reservationService.addReservation(reservationDTO);
+	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO ,@RequestParam(required = false) String key) throws ReservationException, BusException, UserException{
+		Reservation savedReservation =reservationService.addReservation(reservationDTO,key);
 		return new ResponseEntity<Reservation>(savedReservation,HttpStatus.ACCEPTED);
 		
 	}
 	
-	@PutMapping("/reservation")
-	public ResponseEntity<Reservation> updateReservation(@RequestBody Reservation reservation) throws ReservationException{
-		Reservation updatedReservation = reservationService.updateReservation(reservation);
-		return new ResponseEntity<Reservation>(updatedReservation,HttpStatus.OK);
-		
-	}
+//	@PutMapping("/reservation")
+//	public ResponseEntity<Reservation> updateReservation(@RequestBody Reservation reservation) throws ReservationException{
+//		Reservation updatedReservation = reservationService.updateReservation(reservation);
+//		return new ResponseEntity<Reservation>(updatedReservation,HttpStatus.OK);
+//		
+//	}
 	
 	@DeleteMapping("/reservation/{id}")
 	public ResponseEntity<Reservation> deleteReservation(@PathVariable("id") Integer reservationId) throws ReservationException, BusException{
