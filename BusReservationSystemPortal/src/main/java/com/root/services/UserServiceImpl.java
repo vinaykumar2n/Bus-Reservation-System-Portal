@@ -1,50 +1,51 @@
 package com.root.services;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.root.exceptions.UserException;
+import com.root.models.CurrentUserSession;
 import com.root.models.User;
-import com.root.models.UserSession;
 import com.root.repository.UserDao;
+import com.root.repository.UserSessionDao;
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private CurrentUserSessionDetails currentuser;
-
-
-	public User createUser(User user) {
-		
-		Optional<User> opt = userDao.findByUserName(user.getUserName());
-		
-		
-		
-		   if(opt.isPresent()){
-			  System.out.println("User Already Exist"); 
-		   }
-		   
-		   
-		   
-		   return userDao.save(user);
-		
-	}
-
 	
-	public User updateUser(User user, String key) {
+	@Autowired
+	private UserSessionDao userSessionDao;
+	
+	@Override
+	public User createUser(User user) throws UserException {
 		
-		UserSession user2 = currentuser.getcurrentUserSessionDetails(key);
+		User existingUser= userDao.findByMobileNumber(user.getMobileNumber());
 		
-		if(user2==null) {
-			System.out.println("no user found");
-		}
+		if(existingUser != null) 
+			throw new UserException("User already registered with this Mobile number!");
+			
 		
 		return userDao.save(user);
+	
 	}
-
-
+	@Override
+	public User updateUser(User user, String key) throws UserException {
+		
+		CurrentUserSession loggedInUser= userSessionDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new UserException("Please provide a valid key to update a User Details!");
+		}
+		
+		if(user.getUserId() == loggedInUser.getUserId()) {
+			
+			
+			return userDao.save(user);
+		}
+		else
+			throw new UserException("Invalid User Details! please login first.");
+	}
 	
 
 }
