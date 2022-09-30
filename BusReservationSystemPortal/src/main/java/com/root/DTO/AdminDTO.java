@@ -14,14 +14,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class AdminDTO {
 	
 	@NotNull(message = "Username should not be null")
-	private String userName;
+	private String adminUsername;
 	
 	@NotNull(message="password should not be null")
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$")
-	private String password;
+	private String adminPassword;
 	
 	
 
