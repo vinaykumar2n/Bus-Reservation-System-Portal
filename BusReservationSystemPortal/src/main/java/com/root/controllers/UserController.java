@@ -31,9 +31,9 @@ public class UserController {
 	@PutMapping("/users")
 	public  ResponseEntity<User> updateUser(@RequestBody User user,@RequestParam(required = false) String key ) throws UserException {
 		
-		User updatedCustomer= userService.updateUser(user, key);
+		User updatedUser= userService.updateUser(user, key);
 				
-		return new ResponseEntity<User>(updatedCustomer,HttpStatus.OK);
+		return new ResponseEntity<User>(updatedUser,HttpStatus.OK);
 		
 	}
 }

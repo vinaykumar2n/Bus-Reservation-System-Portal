@@ -7,10 +7,8 @@ import com.root.models.CurrentUserSession;
 
 
 public interface UserSessionDao extends JpaRepository<CurrentUserSession, Integer> {
-
-//    public Optional<UserSession> findByUserLoginId(Integer userLoginId);
 	
 	
-	public  CurrentUserSession  findByUuid(String uuid);
+	public CurrentUserSession findByUuid(String uuid);
 	
 }

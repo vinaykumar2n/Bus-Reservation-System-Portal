@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,13 +21,24 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminId;
 	
-	@NotNull(message = "username should not be null")
-	private String adminUsername;
+	@NotNull(message = "Name should not be null")
+	private String firstName;
 	
+	private String lastName;
 
 	@NotNull(message="password should not be null")
-	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$")
 	private String adminPassword;
+	
+	@NotNull
+	private String mobileNumber;
+	
+	@Email
+	private String email;
+
+	
+	
+	
+//	@Pattern(regexp = "[0-9]{10}", message = "Mobile No is Invalid")
 	
 	
 	

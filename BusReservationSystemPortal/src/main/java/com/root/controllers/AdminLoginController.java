@@ -8,29 +8,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.root.DTO.UserLoginDTO;
+import com.root.DTO.AdminLoginDTO;
 import com.root.exceptions.LoginException;
-import com.root.services.UserLoginService;
+import com.root.services.AdminLoginService;
 
 @RestController
-public class UserLoginController {
+public class AdminLoginController {
 	
 	@Autowired
-	private UserLoginService userLogin;
+	private AdminLoginService adminLogin;
 	
-	@PostMapping("/login/user")
-	public ResponseEntity<String> logInUser(@RequestBody UserLoginDTO dto) throws LoginException {
+	@PostMapping("/login/admin")
+	public ResponseEntity<String> logInAdmin(@RequestBody AdminLoginDTO dto) throws LoginException {
 		
-		String result = userLogin.logIntoUserAccount(dto);
+		String result = adminLogin.logIntoAdminAccount(dto);
 		
 		return new ResponseEntity<String>(result,HttpStatus.ACCEPTED );
 		
 	}
 	
-	@PostMapping("/logout/user")
-	public String logoutUser(@RequestParam(required = false) String key) throws LoginException {
+	@PostMapping("/logout/admin")
+	public String logoutAdmin(@RequestParam(required = false) String key) throws LoginException {
 		
-		return userLogin.logOutFromUserAccount(key);
+		return adminLogin.logOutFromAdminAccount(key);
 		
 	}
 }
