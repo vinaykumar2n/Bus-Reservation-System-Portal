@@ -1,6 +1,6 @@
 # REST API for an Bus Reservation System Portal 
 
-* We have developed this REST API for an Bus Reservation System Portal Application. This API performs all the fundamental CRUD operations of any Covid-19 Application platform with user validation at every step, Includes login signup models.
+* We have developed this REST API for an Bus Reservation System Portal Application. This API performs all the fundamental CRUD operations of any Bus Application platform with user validation at every step, Includes login signup models.
 * This project is developed by team of 5 Back-end Developers during project week in Masai School. 
 
 ## Tech Stack
@@ -24,8 +24,8 @@
 * User and Admin authentication & validation with session uuid having.
 * Admin Features:
     * Administrator Role of the entire application
-    *------------------------------------
-    * -------------------------------------------------.
+    *------------------------------------need updation
+    * -------------------------------------------------need updation.
 * User Features:
     * A user can register himself or herself on the platform.
     * He/She can check the bus route and  bus availablity.
