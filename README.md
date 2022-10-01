@@ -190,6 +190,6 @@
 
 ---
 
-<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/Thank-you-word-cloud.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/Thankyou.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
 
 ---
