@@ -33,7 +33,7 @@ public class BusServiceImplementation implements BusService{
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to add bus!");
 		}
 		
 		Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
@@ -53,7 +53,7 @@ public class BusServiceImplementation implements BusService{
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to update bus!");
 		}
 		
 		Optional<Bus> existingBus=busDao.findById(bus.getBusId());
@@ -75,7 +75,7 @@ public class BusServiceImplementation implements BusService{
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to delete bus!");
 		}
 		
 		Optional<Bus> bus=busDao.findById(busId);

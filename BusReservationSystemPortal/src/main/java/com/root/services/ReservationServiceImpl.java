@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.root.DTO.ReservationDTO;
-import com.root.exceptions.AdminException;
 import com.root.exceptions.BusException;
 import com.root.exceptions.ReservationException;
 import com.root.exceptions.UserException;
@@ -18,6 +17,7 @@ import com.root.models.CurrentAdminSession;
 import com.root.models.CurrentUserSession;
 import com.root.models.Reservation;
 import com.root.models.User;
+import com.root.repository.AdminSessionDao;
 import com.root.repository.BusDao;
 import com.root.repository.ReservationDAO;
 import com.root.repository.UserDao;
@@ -38,6 +38,9 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private AdminSessionDao adminSessionDao;
 	
 	@Override
 	public Reservation addReservation(ReservationDTO reservationDTO, String key) throws ReservationException, BusException,UserException {
@@ -82,50 +85,103 @@ public class ReservationServiceImpl implements ReservationService{
 		reservation.setFare(bus.getFarePerSeat()*(reservationDTO.getNoOfSeatsToBook()));
 		reservation.setJourneyDate(reservationDTO.getJourneyDate());
 		
+		List<Reservation> userReservations =user.getReservations();
+		userReservations.add(reservation);
+		
+		user.setReservations(userReservations);
+		
 		reservation.setUser(user);
 		
 		Reservation savedReservation = reservationDao.save(reservation);
+		
 		if(savedReservation == null) throw new ReservationException("Could not reserve the seats");
 		return savedReservation;
 	}
 
+
+
 	@Override
-	public Reservation updateReservation(Reservation reservation) throws ReservationException {
+	public Reservation deleteReservation(Integer reservationId,String key) throws ReservationException, BusException, UserException {
 		
-		Optional<Reservation> opt = reservationDao.findById(reservation.getReservationId());
-		Reservation foundReservation = opt.orElseThrow(()-> new ReservationException("No reservation found!"));
-		Reservation updatedReservation =reservationDao.save(reservation);
-		return updatedReservation;
+		CurrentUserSession loggedInUser= userSessionDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new UserException("Please provide a valid key to reserve seats!");
+		}
+		
+		User user = userDao.findById(loggedInUser.getUserId()).orElseThrow(()-> new UserException("User not found!"));
+		
+		List<Reservation> reservationList = user.getReservations();
+		
+		boolean validReservationId= false;
+		
+		for(int i=0;i<reservationList.size();i++) {
+			
+			if(reservationList.get(i).getReservationId() == reservationId)
+			{
+				validReservationId = true;
+				
+				Optional<Reservation> Opt = reservationDao.findById(reservationId);
+				Reservation foundReservation = Opt.orElseThrow(()-> new ReservationException("No reservation found!"));
+				Bus bus = foundReservation.getBus();
+				
+				if(foundReservation.getJourneyDate().isBefore(LocalDate.now())) throw new ReservationException("Cannot cancel! Journey completed.");
+				
+				bus.setAvailableSeats(bus.getAvailableSeats()+foundReservation.getNoOfSeatsBooked());
+				Bus updatedBus =busDao.save(bus);
+				
+				reservationList.remove(i);
+				reservationDao.delete(foundReservation);
+				return foundReservation;
+			}
+		}
+		
+		if(!validReservationId) throw new UserException("Reservation Id:"+reservationId+" do not belong to the current user!");
+		return null;
 	}
 
 	@Override
-	public Reservation deleteReservation(Integer reservationId) throws ReservationException, BusException {
+	public Reservation viewReservation(Integer reservationId,String key) throws ReservationException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new ReservationException("Please provide a valid key to view reservation!");
+		}
 		
 		Optional<Reservation> Opt = reservationDao.findById(reservationId);
 		Reservation foundReservation = Opt.orElseThrow(()-> new ReservationException("No reservation found!"));
-		Bus bus = foundReservation.getBus();
-		
-		if(foundReservation.getJourneyDate().isBefore(LocalDate.now())) throw new ReservationException("Cannot cancel! Journey completed.");
-		
-		bus.setAvailableSeats(bus.getAvailableSeats()+foundReservation.getNoOfSeatsBooked());
-		Bus updatedBus =busDao.save(bus);
-		
-		reservationDao.delete(foundReservation);
 		return foundReservation;
 	}
 
 	@Override
-	public Reservation viewReservation(Integer reservationId) throws ReservationException {
-		Optional<Reservation> Opt = reservationDao.findById(reservationId);
-		Reservation foundReservation = Opt.orElseThrow(()-> new ReservationException("No reservation found!"));
-		return foundReservation;
-	}
-
-	@Override
-	public List<Reservation> viewAllReservation() throws ReservationException {
+	public List<Reservation> viewAllReservation(String key) throws ReservationException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new ReservationException("Please provide a valid key to view all reservations!");
+		}
+		
 		List<Reservation> reservationList = reservationDao.findAll();
-		if(reservationList.isEmpty()) throw new ReservationException("No reservation found!");
+		if(reservationList.isEmpty()) throw new ReservationException("No reservations found!");
 		return reservationList;
+	}
+
+
+
+	@Override
+	public List<Reservation> viewReservationByUser(String key) throws ReservationException, UserException {
+		
+		CurrentUserSession loggedInUser= userSessionDao.findByUuid(key);
+		
+		if(loggedInUser == null) {
+			throw new UserException("Please provide a valid key to view reservation!");
+		}
+		
+		User user = userDao.findById(loggedInUser.getUserId()).orElseThrow(()-> new UserException("User not found!"));
+		
+		return user.getReservations();
 	}
 
 	
