@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,10 +23,12 @@ public class Reservation {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	private String reservationStatus;
+	
 	private LocalDate reservationDate;
 	private LocalTime reservationTime;
 	private String source;
 	private String destination;
+	private LocalDate journeyDate;
 	private Integer noOfSeatsBooked;
 	private Integer fare;
 	

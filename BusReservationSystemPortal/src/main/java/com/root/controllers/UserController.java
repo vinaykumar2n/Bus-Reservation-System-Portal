@@ -1,68 +1,74 @@
 package com.root.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.root.models.Admin;
+import com.root.exceptions.AdminException;
+import com.root.exceptions.UserException;
 import com.root.models.User;
-import com.root.repository.UserSessionDao;
-import com.root.services.AdminService;
 import com.root.services.UserService;
 
 @RestController
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private AdminService adminService;
 	
-	//adding user
-	@PostMapping("/user")
-	public ResponseEntity<User> saveUser(@RequestBody User user) {
-		User user1 = userService.createUser(user);
+	@PostMapping("/users")
+	public ResponseEntity<User> saveUser(@RequestBody User user) throws UserException {
 		
-		return new ResponseEntity<User>(user1, HttpStatus.OK);
+		User savedUser= userService.createUser(user);
+		
+		return new ResponseEntity<User>(savedUser,HttpStatus.CREATED);
 	}
 	
-	//adding admin
-		@PostMapping("/admin")
-		public ResponseEntity<Admin> saveAdmin(@RequestBody Admin admin) {
-			Admin admin1 = adminService.createAdmin(admin);
-			
-			return new ResponseEntity<Admin>(admin1, HttpStatus.OK);
-		}
-	
-	
-	//updating user
-	@PutMapping("/user")
-	public ResponseEntity<User> updateUser(@RequestBody User user, @RequestParam(required = false)String key){
-	
+	@PutMapping("/users")
+	public  ResponseEntity<User> updateUser(@RequestBody User user,@RequestParam(required = false) String key ) throws UserException {
 		
-        User user1 = userService.updateUser(user,key);
-		
-		return new ResponseEntity<User>(user1, HttpStatus.OK);	
+		User updatedUser= userService.updateUser(user, key);
+				
+		return new ResponseEntity<User>(updatedUser,HttpStatus.OK);
 		
 	}
 	
-	//updating user
-		@PutMapping("/admin")
-		public ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin, @RequestBody(required = false)String key){
+	@DeleteMapping("/users/admin/{userId}")
+	public  ResponseEntity<User> deleteUser(@PathVariable("userId") Integer userId ,@RequestParam(required = false) String key ) throws UserException, AdminException {
 		
-			
-	        Admin admin1 = adminService.updateAdmin(admin,key);
-			
-			return new ResponseEntity<Admin>(admin1, HttpStatus.OK);	
-			
-		}
+		User deletedUser= userService.deleteUser(userId, key);
+				
+		return new ResponseEntity<User>(deletedUser,HttpStatus.OK);
 		
-		//delete user
+	}
+	
+	@GetMapping("/users/admin/{userId}")
+	public  ResponseEntity<User> viewUser(@PathVariable("userId") Integer userId ,@RequestParam(required = false) String key ) throws UserException, AdminException {
 		
-
+		User user= userService.viewUserById(userId, key);
+				
+		return new ResponseEntity<User>(user,HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/users/admin")
+	public  ResponseEntity<List<User>> viewAllUser(@RequestParam(required = false) String key ) throws UserException, AdminException {
+		
+		List<User> userList= userService.viewUsers(key);
+				
+		return new ResponseEntity<List<User>>(userList,HttpStatus.OK);
+		
+	}
+	
+	
 }

@@ -2,15 +2,16 @@ package com.root.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.root.exceptions.AdminException;
 import com.root.exceptions.BusException;
-import com.root.exceptions.RouteException;
 import com.root.models.Bus;
+import com.root.models.CurrentAdminSession;
 import com.root.models.Route;
+import com.root.repository.AdminSessionDao;
 import com.root.repository.BusDao;
 import com.root.repository.RouteDao;
 
@@ -22,9 +23,18 @@ public class BusServiceImplementation implements BusService{
 	
 	@Autowired
 	private RouteDao routeDao;
+	
+	@Autowired
+	private AdminSessionDao adminSessionDao;
 
 	@Override
-	public Bus addBus(Bus bus) throws BusException {
+	public Bus addBus(Bus bus,String key) throws BusException, AdminException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new AdminException("Please provide a valid key to add bus!");
+		}
 		
 		Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
 		
@@ -38,7 +48,13 @@ public class BusServiceImplementation implements BusService{
 	}
 
 	@Override
-	public Bus updateBus(Bus bus) throws BusException {
+	public Bus updateBus(Bus bus,String key) throws BusException, AdminException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new AdminException("Please provide a valid key to update bus!");
+		}
 		
 		Optional<Bus> existingBus=busDao.findById(bus.getBusId());
 		
@@ -54,7 +70,13 @@ public class BusServiceImplementation implements BusService{
 	}
 
 	@Override
-	public Bus deleteBus(int busId) throws BusException {
+	public Bus deleteBus(Integer busId,String key) throws BusException, AdminException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new AdminException("Please provide a valid key to delete bus!");
+		}
 		
 		Optional<Bus> bus=busDao.findById(busId);
 		
@@ -80,7 +102,7 @@ public class BusServiceImplementation implements BusService{
 	}
 
 	@Override
-	public List<Bus> viewAllBuss() throws BusException {
+	public List<Bus> viewAllBuses() throws BusException {
 		
 		List<Bus> buses= busDao.findAll();
 		if(buses.size()>0)
@@ -88,6 +110,18 @@ public class BusServiceImplementation implements BusService{
 		else
 			throw new BusException("There is no bus availabe now");
 
+	}
+
+	@Override
+	public Bus viewBus(Integer busId) throws BusException {
+		Optional<Bus> bus=busDao.findById(busId);
+		
+		if(bus.isPresent()) {
+			Bus existingBus = bus.get();
+			return existingBus;
+		}
+		else
+			throw new BusException("Bus doesn't exist with busId : "+busId);
 	}
 	
 }
