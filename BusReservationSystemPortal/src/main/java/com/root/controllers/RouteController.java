@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.root.exceptions.AdminException;
 import com.root.exceptions.RouteException;
 import com.root.models.Route;
 import com.root.services.RouteService;
@@ -26,27 +28,27 @@ public class RouteController {
 	@Autowired
 	private RouteService routeService;
 
-	@PostMapping("/route")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException{
+	@PostMapping("/route/admin")
+	public ResponseEntity<Route> addRoute(@Valid @RequestBody Route route,@RequestParam(required = false) String key) throws RouteException, AdminException{
 		
-		Route newRoute= routeService.addRoute(route);
+		Route newRoute= routeService.addRoute(route,key);
 		
 		return new ResponseEntity<Route>(newRoute,HttpStatus.ACCEPTED);
 	}
 	
 	
-	@DeleteMapping("/deleteRoute/{routeId}")
-	public ResponseEntity<Route> DeleteRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
+	@DeleteMapping("/deleteRoute/admin/{routeId}")
+	public ResponseEntity<Route> DeleteRoute(@PathVariable("routeId") Integer routeId,@RequestParam(required = false) String key) throws RouteException, AdminException{
 		
-		Route route = routeService.deleteRoute(routeId);
+		Route route = routeService.deleteRoute(routeId,key);
 		
 		return new ResponseEntity<Route>(route,HttpStatus.GONE);
 	}
 	
-	@PutMapping("/route")
-	public ResponseEntity<Route> updateRoute(@RequestBody Route route) throws RouteException{
+	@PutMapping("/route/admin")
+	public ResponseEntity<Route> updateRoute(@Valid @RequestBody Route route,@RequestParam(required = false) String key) throws RouteException, AdminException{
 		
-		Route newRoute= routeService.updateRoute(route);
+		Route newRoute= routeService.updateRoute(route,key);
 		
 		return new ResponseEntity<Route>(newRoute,HttpStatus.OK);
 	}

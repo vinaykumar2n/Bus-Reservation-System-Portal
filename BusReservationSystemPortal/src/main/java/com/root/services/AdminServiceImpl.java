@@ -1,56 +1,49 @@
 package com.root.services;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.root.exceptions.AdminException;
 import com.root.models.Admin;
-import com.root.models.AdminSession;
-import com.root.models.User;
+import com.root.models.CurrentAdminSession;
 import com.root.repository.AdminDao;
-
+import com.root.repository.AdminSessionDao;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements AdminService{
+	
 	@Autowired
 	private AdminDao adminDao;
-	@Autowired
-	private CurrentAdminSessionDetails currentadmin;
-
-
-	public Admin createAdmin(Admin admin) {
-		
-		Optional<Admin> optAdmin = adminDao.findByAdminUsername(admin.getAdminUsername());
-		
-		
-		
-		   if(optAdmin.isPresent()){
-			  System.out.println("Admin Already Exist"); 
-		   }
-		   
-		   
-		   
-		   return adminDao.save(admin);
-		
-	}
-
 	
-	public Admin updateAdmin(Admin user, String key) {
+	@Autowired
+	private AdminSessionDao adminSessionDao;
+	
+	@Override
+	public Admin createAdmin(Admin admin) throws AdminException {
 		
-		AdminSession admin2 = currentadmin.getcurrentAdminSessionDetails(key);
+		Admin existingAdmin= adminDao.findByMobileNumber(admin.getMobileNumber());
 		
-		if(admin2==null) {
-			System.out.println("no user found");
+		if(existingAdmin != null) 
+			throw new AdminException("Admin already registered with this Mobile number!");
+		
+		return adminDao.save(admin);
+	
+	}
+	
+	@Override
+	public Admin updateAdmin(Admin admin, String key) throws AdminException {
+		
+		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
+		
+		if(loggedInAdmin == null) {
+			throw new AdminException("Please provide a valid key to update Admin Details!");
 		}
 		
-		return adminDao.save(user);
+		if(admin.getAdminId() == loggedInAdmin.getAdminId()) {
+			
+			return adminDao.save(admin);
+		}
+		else
+			throw new AdminException("Invalid Admin Details! please login first.");
 	}
-
-
-	
-
-
-	
-
 }
