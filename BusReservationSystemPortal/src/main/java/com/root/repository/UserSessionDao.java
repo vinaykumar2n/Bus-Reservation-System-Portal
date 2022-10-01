@@ -1,22 +1,14 @@
 package com.root.repository;
 
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.root.models.UserSession;
+import com.root.models.CurrentUserSession;
 
 
-public interface UserSessionDao extends JpaRepository<UserSession, Integer> {
-
-    public Optional<UserSession> findByUserLoginId(Integer userLoginId);
-	
-	public Optional<UserSession> findByUuid(String uuid);
-
-	public void save(String uuid);
+public interface UserSessionDao extends JpaRepository<CurrentUserSession, Integer> {
 	
 	
-	
-	
+	public CurrentUserSession findByUuid(String uuid);
 	
 }

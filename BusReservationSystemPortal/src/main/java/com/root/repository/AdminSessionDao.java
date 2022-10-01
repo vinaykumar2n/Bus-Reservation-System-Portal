@@ -1,18 +1,11 @@
 package com.root.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.root.models.CurrentAdminSession;
 
-import com.root.models.AdminSession;
 
+public interface AdminSessionDao extends JpaRepository<CurrentAdminSession, Integer> {
 
-public interface AdminSessionDao extends JpaRepository<AdminSession, Integer> {
+	public  CurrentAdminSession findByUuid(String uuid);
 
-    public Optional<AdminSession> findByAdminId(Integer adminId);
-	
-	public Optional<AdminSession> findByUuid(String uuid);
-
-	public void save(String uuid);
-	
 }
