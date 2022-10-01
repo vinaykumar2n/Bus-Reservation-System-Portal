@@ -37,6 +37,38 @@ public class GlobalException {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(AdminException.class)
+	public ResponseEntity<Error> routeException(AdminException adminEx,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),adminEx.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<Error> routeException(LoginException loginException,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),loginException.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ReservationException.class)
+	public ResponseEntity<Error> routeException(ReservationException reservationException,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),reservationException.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(UserException.class)
+	public ResponseEntity<Error> routeException(UserException userException,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),userException.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public ResponseEntity<Error> noHandler(NoHandlerFoundException nohandler,WebRequest web){
 		
