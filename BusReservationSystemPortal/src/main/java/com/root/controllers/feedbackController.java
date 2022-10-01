@@ -11,13 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.root.exceptions.BusException;
 import com.root.exceptions.FeedBackException;
 import com.root.models.Feedback;
 import com.root.services.feedbackService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 public class feedbackController {
@@ -30,7 +31,7 @@ public class feedbackController {
 		
 //		Feedback feedback2 = feedbackService.addFeedBack(feedback);
 		
-		return new ResponseEntity<String>("hei i am there",HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>("hei i am working fine",HttpStatus.ACCEPTED);
 		
 	}
 	
@@ -38,7 +39,7 @@ public class feedbackController {
 	@PostMapping("/addFeedback/{id}/{busid}")
 	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback,
 												@PathVariable("id") Integer uId,
-												@PathVariable("busid") Integer bId){
+												@PathVariable("busid") Integer bId) throws BusException, Exception{
 		
 		Feedback feedback2 = feedbackService.addFeedBack(feedback,uId,bId);
 		
@@ -69,7 +70,7 @@ public class feedbackController {
 		
 	}
 	
-	@GetMapping("/viewFeedback")
+	@GetMapping("/viewFeedbackAll")
 	public ResponseEntity<List<Feedback>> viewFeedbackAll() throws FeedBackException {
 		
 		List<Feedback> feedback2 =  feedbackService.viewFeedbackAll();

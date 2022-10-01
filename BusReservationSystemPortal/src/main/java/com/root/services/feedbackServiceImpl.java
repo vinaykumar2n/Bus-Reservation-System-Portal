@@ -8,10 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.root.exceptions.BusException;
 import com.root.exceptions.FeedBackException;
 import com.root.models.Bus;
 import com.root.models.Feedback;
 import com.root.models.User;
+import com.root.repository.BusDao;
+import com.root.repository.UserDao;
 import com.root.repository.feedbackDao;
 
 @Service
@@ -19,41 +22,33 @@ public class feedbackServiceImpl implements feedbackService {
 
 	@Autowired
 	private feedbackDao fdao;
-	
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private BusDao busDao;
 
 	@Override
-	public Feedback addFeedBack(Feedback feedBack,Integer uid,Integer bid)throws busExcpetion, userException  {
+	public Feedback addFeedBack(Feedback feedBack, Integer uid, Integer bid) throws BusException, Exception {
 		Optional<Bus> busOptional = busDao.findById(bid);
-		
-		Optional<User> userOptional = userDao.findById(uid);
-		
-		
-		if(busOptional.isEmpty() ) {
-			
-			throw new busException("bus is not present with this id");
-		}
-		
-		if(userOptional.isEmpty()) {
-		
-			throw new userException("user id is not matched with database");
-		}
-		
-			
-			feedBack.setBus(busOptional.get());
-			feedBack.setUser(userOptional.get());
-			Feedback feedback = fdao.save(feedBack);
+		if (busOptional.isEmpty()) {
 
-			return feedBack;
+			throw new BusException("bus is not present with this id");
 		}
-		
-		
-		
+
+		Optional<User> userOptional = userDao.findById(uid);
+
+		if (userOptional.isEmpty()) {
+
+			throw new Exception("user id is not matched with database ++++++++++++++++++++++++++++++++++++++");
+		}
+
+		feedBack.setBus(busOptional.get());
+		feedBack.setUser(userOptional.get());
+		Feedback feedback = fdao.save(feedBack);
+
+		return feedBack;
 	}
 
 	@Override
