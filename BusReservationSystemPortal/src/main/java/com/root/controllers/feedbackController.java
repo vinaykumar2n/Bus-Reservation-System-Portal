@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.root.exceptions.BusException;
 import com.root.exceptions.FeedBackException;
+import com.root.exceptions.UserException;
 import com.root.models.Feedback;
 import com.root.services.feedbackService;
 
@@ -26,20 +27,12 @@ public class feedbackController {
 	@Autowired
 	private feedbackService feedbackService;
 	
-	@GetMapping("/add")
-	public ResponseEntity<String> addFeedback() {
-		
-//		Feedback feedback2 = feedbackService.addFeedBack(feedback);
-		
-		return new ResponseEntity<String>("hei i am working fine",HttpStatus.ACCEPTED);
-		
-	}
 	
 	
-	@PostMapping("/addFeedback/{id}/{busid}")
+	@PostMapping("/feedback/{id}/{busid}")
 	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback,
 												@PathVariable("id") Integer uId,
-												@PathVariable("busid") Integer bId) throws BusException, Exception{
+												@PathVariable("busid") Integer bId) throws UserException,BusException{
 		
 		Feedback feedback2 = feedbackService.addFeedBack(feedback,uId,bId);
 		
@@ -49,7 +42,7 @@ public class feedbackController {
 	
 	
 	
-	@PostMapping("/updateFeedback")
+	@PostMapping("/feedback")
 	public ResponseEntity<Feedback> updateFeedback(@RequestBody Feedback feedback) throws FeedBackException {
 		
 		Feedback feedback2 = feedbackService.updateFeedBack(feedback);
@@ -61,7 +54,7 @@ public class feedbackController {
 	
 //	viewFeedback
 	
-	@GetMapping("/viewFeedback/{id}")
+	@GetMapping("/feedback/{id}")
 	public ResponseEntity<Feedback> viewFeedback(@PathVariable("id") Integer ID) throws FeedBackException {
 		
 		Feedback feedback2 = feedbackService.viewFeedback(ID);
@@ -70,7 +63,7 @@ public class feedbackController {
 		
 	}
 	
-	@GetMapping("/viewFeedbackAll")
+	@GetMapping("/feedback")
 	public ResponseEntity<List<Feedback>> viewFeedbackAll() throws FeedBackException {
 		
 		List<Feedback> feedback2 =  feedbackService.viewFeedbackAll();

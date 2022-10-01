@@ -37,6 +37,15 @@ public class GlobalException {
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(FeedBackException.class)
+	public ResponseEntity<Error> feedbackException(FeedBackException feedbackExc,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),feedbackExc.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	
 	@ExceptionHandler(AdminException.class)
 	public ResponseEntity<Error> routeException(AdminException adminEx,WebRequest web){
 		
