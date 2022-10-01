@@ -42,6 +42,10 @@ public class RouteServiceImplemetation implements RouteService{
 			throw new AdminException("Please provide a valid key to add route!");
 		}
 		
+		Route newRoute = routeDao.findByRouteFromAndRouteTo(route.getRouteFrom(), route.getRouteTo());
+		
+		if(newRoute != null) throw new RouteException("Route :"+ newRoute.getRouteFrom() +" to "+ newRoute.getRouteTo()+ " is already present!");
+		
 		
 		List<Bus> buses = new ArrayList<>();	
 		
@@ -68,11 +72,9 @@ public class RouteServiceImplemetation implements RouteService{
 			
 			Route presentRoute = existedRoute.get();
 			List<Bus> busList = presentRoute.getBusList();
-			for(Bus bus: busList) {
-				bus.setRouteFrom(route.getRouteFrom());
-				bus.setRouteTo(route.getRouteTo());
-			}
-			route.setBusList(busList);
+			
+			if(!busList.isEmpty()) throw new RouteException("Cannot update running route! Buses are already scheduled in the route.");
+			
 			return routeDao.save(route);
 		}
 		else

@@ -1,5 +1,7 @@
 package com.root.services;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +40,7 @@ public class BusServiceImplementation implements BusService{
 		
 		Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
 		
-		if(bus != null) {
+		if(route != null) {
 			route.getBusList().add(bus);
 			bus.setRoute(route);
 			return busDao.save(bus);
@@ -56,9 +58,14 @@ public class BusServiceImplementation implements BusService{
 			throw new AdminException("Please provide a valid key to update bus!");
 		}
 		
-		Optional<Bus> existingBus=busDao.findById(bus.getBusId());
+		Optional<Bus> existingBusOpt=busDao.findById(bus.getBusId());
 		
-		if(existingBus.isPresent()) {
+		if(existingBusOpt.isPresent()) {
+			
+			Bus existingBus = existingBusOpt.get();
+			
+			if(existingBus.getAvailableSeats()!=existingBus.getSeats()) throw new BusException("Cannot update already scheduled bus!");
+			
 			Route route=routeDao.findByRouteFromAndRouteTo(bus.getRouteFrom(), bus.getRouteTo());
 			if(route == null) throw new BusException("Invalid route!");
 			bus.setRoute(route);
@@ -80,9 +87,16 @@ public class BusServiceImplementation implements BusService{
 		
 		Optional<Bus> bus=busDao.findById(busId);
 		
+		
 		if(bus.isPresent()) {
-			Bus existingBus = bus.get();
+			Bus existingBus = bus.get();			
+			
+			if(LocalDate.now().isBefore(existingBus.getBusJourneyDate()) && existingBus.getAvailableSeats()!=existingBus.getSeats())
+				throw new BusException("Cannot delete as the bus is scheduled and reservations are booked for the bus.");
+			
+			
 			busDao.delete(existingBus);
+			
 			return existingBus;
 		}
 		else

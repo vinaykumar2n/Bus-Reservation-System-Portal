@@ -2,6 +2,8 @@ package com.root.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,7 @@ public class UserController {
 	
 	
 	@PostMapping("/users")
-	public ResponseEntity<User> saveUser(@RequestBody User user) throws UserException {
+	public ResponseEntity<User> saveUser(@Valid @RequestBody User user) throws UserException {
 		
 		User savedUser= userService.createUser(user);
 		
@@ -35,7 +37,7 @@ public class UserController {
 	}
 	
 	@PutMapping("/users")
-	public  ResponseEntity<User> updateUser(@RequestBody User user,@RequestParam(required = false) String key ) throws UserException {
+	public  ResponseEntity<User> updateUser(@Valid @RequestBody User user,@RequestParam(required = false) String key ) throws UserException {
 		
 		User updatedUser= userService.updateUser(user, key);
 				
