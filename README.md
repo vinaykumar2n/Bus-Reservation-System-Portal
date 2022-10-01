@@ -126,5 +126,70 @@
 ```
 
 ## Video Explainer of flow control
- <a href="will be updaate">**There is no video yet** </a>
+ <a href="link will be updaate here">**There is no video yet** </a>
  
+### E-R Diagram Of Bus Application
+---
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/ER%20Diagram.jpeg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Swagger UI
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/AllController.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### User and User Login Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/User%26UserLoginController.jpg" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Admin and Admin Login Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/admin%26adminlogincontroller.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Bus Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/BusController.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Reservation Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/ReservationController.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Route Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/RouteController.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+### Feedback Controller
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/FeedbackController.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
+
+<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/Thank-you-word-cloud.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+---
