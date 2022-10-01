@@ -1,5 +1,7 @@
 package com.root.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class UserLoginController {
 	private UserLoginService userLogin;
 	
 	@PostMapping("/login/user")
-	public ResponseEntity<String> logInUser(@RequestBody UserLoginDTO dto) throws LoginException {
+	public ResponseEntity<String> logInUser(@Valid @RequestBody UserLoginDTO dto) throws LoginException {
 		
 		String result = userLogin.logIntoUserAccount(dto);
 		

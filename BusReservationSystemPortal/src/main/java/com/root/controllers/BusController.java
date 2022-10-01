@@ -1,6 +1,9 @@
 package com.root.controllers;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +28,7 @@ public class BusController {
 	private BusService busService;
 	
 	@PostMapping("/bus/admin")
-	public ResponseEntity<Bus> addBus(@RequestBody Bus bus,@RequestParam(required = false) String key) throws BusException, AdminException{
+	public ResponseEntity<Bus> addBus(@Valid @RequestBody Bus bus,@RequestParam(required = false) String key) throws BusException, AdminException{
 		
 		Bus newBus=busService.addBus(bus,key);
 		
@@ -33,7 +36,7 @@ public class BusController {
 	}
 	
 	@PutMapping("/bus/admin")
-	public ResponseEntity<Bus> updateBus(@RequestBody Bus bus,@RequestParam(required = false) String key) throws BusException, AdminException{
+	public ResponseEntity<Bus> updateBus(@Valid @RequestBody Bus bus,@RequestParam(required = false) String key) throws BusException, AdminException{
 		
 		Bus newBus=busService.updateBus(bus,key);
 		

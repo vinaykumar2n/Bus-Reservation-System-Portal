@@ -13,67 +13,68 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class GlobalException {
 	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Error> validatedException(MethodArgumentNotValidException validE,WebRequest web){
+	@ExceptionHandler(UserException.class)
+	public ResponseEntity<Error> userException(UserException userEx,WebRequest web){
 		
-		Error error = new Error(LocalDateTime.now(),validE.getMessage(),validE.getBindingResult().getFieldError().getDefaultMessage());
-		
-		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
-	
-	@ExceptionHandler(BusException.class)
-	public ResponseEntity<Error> busException(BusException buse,WebRequest web){
-		
-		Error error = new Error(LocalDateTime.now(),buse.getMessage(), web.getDescription(false));
+		Error error = new Error(LocalDateTime.now(),userEx.getMessage(), web.getDescription(false));
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
-	
-	@ExceptionHandler(RouteException.class)
-	public ResponseEntity<Error> routeException(RouteException routeE,WebRequest web){
-		
-		Error error = new Error(LocalDateTime.now(),routeE.getMessage(), web.getDescription(false));
-		
-		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
-	
-	@ExceptionHandler(FeedBackException.class)
-	public ResponseEntity<Error> feedbackException(FeedBackException feedbackExc,WebRequest web){
-		
-		Error error = new Error(LocalDateTime.now(),feedbackExc.getMessage(), web.getDescription(false));
-		
-		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
-	}
-	
 	
 	@ExceptionHandler(AdminException.class)
-	public ResponseEntity<Error> routeException(AdminException adminEx,WebRequest web){
+	public ResponseEntity<Error> adminException(AdminException adminEx,WebRequest web){
 		
 		Error error = new Error(LocalDateTime.now(),adminEx.getMessage(), web.getDescription(false));
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(LoginException.class)
-	public ResponseEntity<Error> routeException(LoginException loginException,WebRequest web){
+	
+	@ExceptionHandler(BusException.class)
+	public ResponseEntity<Error> busException(BusException busEx,WebRequest web){
 		
-		Error error = new Error(LocalDateTime.now(),loginException.getMessage(), web.getDescription(false));
+		Error error = new Error(LocalDateTime.now(),busEx.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(RouteException.class)
+	public ResponseEntity<Error> routeException(RouteException routeEx,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),routeEx.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FeedBackException.class)
+	public ResponseEntity<Error> feedbackException(FeedBackException feedbackEx,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),feedbackEx.getMessage(), web.getDescription(false));
+		
+		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
+	}
+	
+	
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<Error> loginException(LoginException loginEx,WebRequest web){
+		
+		Error error = new Error(LocalDateTime.now(),loginEx.getMessage(), web.getDescription(false));
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(ReservationException.class)
-	public ResponseEntity<Error> routeException(ReservationException reservationException,WebRequest web){
+	public ResponseEntity<Error> reservationException(ReservationException reservationEx,WebRequest web){
 		
-		Error error = new Error(LocalDateTime.now(),reservationException.getMessage(), web.getDescription(false));
+		Error error = new Error(LocalDateTime.now(),reservationEx.getMessage(), web.getDescription(false));
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(UserException.class)
-	public ResponseEntity<Error> routeException(UserException userException,WebRequest web){
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Error> validatedException(MethodArgumentNotValidException validEx,WebRequest web){
 		
-		Error error = new Error(LocalDateTime.now(),userException.getMessage(), web.getDescription(false));
+		Error error = new Error(LocalDateTime.now(),validEx.getMessage(),validEx.getBindingResult().getFieldError().getDefaultMessage());
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}

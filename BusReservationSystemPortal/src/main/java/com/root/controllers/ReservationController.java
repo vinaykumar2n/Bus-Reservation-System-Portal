@@ -2,6 +2,8 @@ package com.root.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class ReservationController {
 	private ReservationService reservationService;
 	
 	@PostMapping("/reservation/user")
-	public ResponseEntity<Reservation> addReservation(@RequestBody ReservationDTO reservationDTO ,@RequestParam(required = false) String key) throws ReservationException, BusException, UserException{
+	public ResponseEntity<Reservation> addReservation(@Valid @RequestBody ReservationDTO reservationDTO ,@RequestParam(required = false) String key) throws ReservationException, BusException, UserException{
 		Reservation savedReservation =reservationService.addReservation(reservationDTO,key);
 		return new ResponseEntity<Reservation>(savedReservation,HttpStatus.ACCEPTED);
 		

@@ -34,6 +34,9 @@ public class Bus {
 	private String driverName;
 	private String busType;
 	
+	@NotNull(message = "Bus registeration number cannot be null!")
+	private String busRegNumber;
+	
 	@NotNull(message = "Start point cannot be null!")
 	@NotBlank(message = "Start point cannot be blank!")
 	private String routeFrom;
