@@ -28,9 +28,9 @@ public class AdminAuthenticationImpl implements AdminAuthentication{
 	
 	@Autowired
 	private CurrentAdminSessionDetails currentAdmin;
+	
 	@Override
 	public String login(AdminDTO adminDTO) {
-		// TODO Auto-generated method stub
 		
 		Optional<Admin> optAdmin = adminDao.findByAdminUsername(adminDTO.getAdminUsername());
 		

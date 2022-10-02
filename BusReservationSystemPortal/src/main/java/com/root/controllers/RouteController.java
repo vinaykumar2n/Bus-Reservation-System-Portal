@@ -27,7 +27,7 @@ public class RouteController {
 	private RouteService routeService;
 
 	@PostMapping("/route")
-	public ResponseEntity<Route> addRoute(@RequestBody Route route) throws RouteException{
+	public ResponseEntity<Route> addRoute(@Valid @RequestBody Route route) throws RouteException{
 		
 		Route newRoute= routeService.addRoute(route);
 		
@@ -36,7 +36,7 @@ public class RouteController {
 	
 	
 	@DeleteMapping("/deleteRoute/{routeId}")
-	public ResponseEntity<Route> DeleteRoute(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> DeleteRoute(@Valid @PathVariable("routeId") Integer routeId) throws RouteException{
 		
 		Route route = routeService.deleteRoute(routeId);
 		
@@ -44,7 +44,7 @@ public class RouteController {
 	}
 	
 	@PutMapping("/route")
-	public ResponseEntity<Route> updateRoute(@RequestBody Route route) throws RouteException{
+	public ResponseEntity<Route> updateRoute(@Valid @RequestBody Route route) throws RouteException{
 		
 		Route newRoute= routeService.updateRoute(route);
 		
@@ -61,7 +61,7 @@ public class RouteController {
 
 	
 	@GetMapping("/route/{routeId}")
-	public ResponseEntity<Route> getRouteById(@PathVariable("routeId") Integer routeId) throws RouteException{
+	public ResponseEntity<Route> getRouteById(@Valid @PathVariable("routeId") Integer routeId) throws RouteException{
 		
 		Route route = routeService.viewRoute(routeId);
 		

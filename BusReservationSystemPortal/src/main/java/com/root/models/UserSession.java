@@ -29,7 +29,6 @@ public class UserSession {
 	private LocalDateTime dateTime;
 	private String uuid;
 	
-	
 	public UserSession(Integer userLoginId, LocalDateTime dateTime, String uuid) {
 		super();
 	
@@ -37,9 +36,4 @@ public class UserSession {
 		this.dateTime = dateTime;
 		this.uuid = uuid;
 	}
-	
-	
-	
-	
-
 }

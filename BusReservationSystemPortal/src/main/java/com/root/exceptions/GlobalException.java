@@ -16,7 +16,7 @@ public class GlobalException {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Error> validatedException(MethodArgumentNotValidException validE,WebRequest web){
 		
-		Error error = new Error(LocalDateTime.now(),validE.getMessage(),validE.getBindingResult().getFieldError().getDefaultMessage());
+		Error error = new Error(LocalDateTime.now(),"Validation Error",validE.getBindingResult().getFieldError().getDefaultMessage());
 		
 		return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
 	}
