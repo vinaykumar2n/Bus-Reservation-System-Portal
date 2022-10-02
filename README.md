@@ -1,6 +1,6 @@
-# REST API for an Bus Reservation System Portal 
+# REST API for Bus Reservation System Portal 
 
-* We have developed this REST API for an Bus Reservation System Portal Application. This API performs all the fundamental CRUD operations of any Bus Application platform with user validation at every step, Includes login signup models.
+* We have developed this REST API for a Bus Reservation System Portal Application. This API performs all the fundamental CRUD operations of any Bus Reservation Application platform with user validation at every step.
 * This project is developed by team of 5 Back-end Developers during project week in Masai School. 
 
 ## Tech Stack
@@ -11,27 +11,28 @@
 * Spring Data JPA
 * Hibernate
 * MySQL
-* Swagger
 
 ## Modules
 
 * Login, Logout Module
-* User Module
 * Admin Module
+* User Module
+* Route Module
+* Bus Module
+* Reservation Module
+* Feedback Module
 
 ## Features
 
-* User and Admin authentication & validation with session uuid having.
+* User and Admin authentication & validation with session uuid.
 * Admin Features:
     * Administrator Role of the entire application
-    *------------------------------------need updation
-    * -------------------------------------------------need updation.
+    * Only registered admins with valid session token can add/update/delete route and bus from main database
+    * Admin can access the details of different users and reservations.
 * User Features:
-    * A user can register himself or herself on the platform.
-    * He/She can check the bus route and  bus availablity.
-    * If bus is available, can reserve seat too.
-    * After booking a bus, he will get bus details for start his/her journey.    
-
+    * Registering themselves with application, and logging in to get the valid session token
+    * Viewing list of available buses and booking a reservation
+    * Only logged in user can access his reservations, profile updation and other features.
 
 ## Contributors
 
@@ -41,32 +42,26 @@
 * [@Pintu Kumar](https://github.com/pintu903)
 * [@Sudarshan Chavan](https://github.com/Sudarshan2530)
 
-
-
-
 ## Installation & Run
 
 * Before running the API server, you should update the database config inside the [application.properties](https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/BusReservationSystemPortal/src/main/resources/application.properties) file. 
 * Update the port number, username and password as per your local database config.
 
 ```
-    server.port=8080
+    server.port=8888
 
-    spring.datasource.url=jdbc:mysql://localhost:3306/busdb;
+    spring.datasource.url=jdbc:mysql://localhost:3306/busdb
     spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
     spring.datasource.username=root
     spring.datasource.password=root
 
 ```
 
-## AWS Deployed link
-`http://will be updated`
-
 ## API Root Endpoint
 
-`https://localhost:8080/`
+`https://localhost:8888/`
 
-`http://localhost:8080/swagger-ui/`
+`http://localhost:8888/swagger-ui/`
 
 
 ## API Module Endpoints
@@ -107,7 +102,7 @@
 
 ### Sample API Response for Admin Login
 
-`POST   localhost:8080/login/adminlogin`
+`POST   localhost:8888/login/adminlogin`
 
 * Request Body
 
@@ -124,9 +119,6 @@
    CurrentAdminSession( adminId=10, uuid=ZaVLaK,localDatetime=2022-10-01 12:29:52.376508)
    
 ```
-
-## Video Explainer of flow control
- <a href="link will be updaate here">**There is no video yet** </a>
  
 ### E-R Diagram Of Bus Application
 ---
