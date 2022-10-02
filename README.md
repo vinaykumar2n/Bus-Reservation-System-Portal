@@ -102,13 +102,13 @@
 
 ### Sample API Response for Admin Login
 
-`POST   localhost:8888/login/adminlogin`
+`POST   localhost:8888/login/admin`
 
 * Request Body
 
 ```
     {
-        "mobileNo": "7056319981",
+        "mobileNo": "8651060999",
         "password": "Clickme@007"
     }
 ```
@@ -182,6 +182,7 @@
 
 ---
 
-<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/Thankyou.jpg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+# THANK YOU
 
 ---
