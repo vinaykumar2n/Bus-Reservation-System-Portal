@@ -122,7 +122,8 @@
  
 ### E-R Diagram Of Bus Application
 ---
-<img src="https://github.com/vinaykumar2n/succinct-wrench-1095/blob/main/Images/ER%20Diagram.jpeg?raw=true" style="max-width: 100%; display: inline-block;" data-target="animated-image.originalImage">
+
+![Bus Reservation System Portal ER Diagram](https://user-images.githubusercontent.com/101393405/193448015-c00c2fe3-f836-4812-ac6a-10965cb4bbec.png)
 
 ---
 
