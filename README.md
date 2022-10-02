@@ -68,7 +68,7 @@
 
 ### Login Module
 
-* `POST //api/adminlogin` : Admin can login with mobile number and password provided at the time of registation
+* `POST //login/admin` : Admin can login with mobile number and password provided at the time of registation
 <!--
 ### User Module
 
