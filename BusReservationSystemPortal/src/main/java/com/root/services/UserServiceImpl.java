@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to delete user!");
 		}
 		User user = userDao.findById(userId).orElseThrow(()-> new UserException("Invalid user Id!"));
 		userDao.delete(user);
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to view user datails!");
 		}
 		
 		User user = userDao.findById(userId).orElseThrow(()-> new UserException("Invalid user Id!"));
@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 		CurrentAdminSession loggedInAdmin= adminSessionDao.findByUuid(key);
 		
 		if(loggedInAdmin == null) {
-			throw new AdminException("Please provide a valid key to add route!");
+			throw new AdminException("Please provide a valid key to view all users!");
 		}
 		
 		List<User> userList = userDao.findAll();
