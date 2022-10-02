@@ -37,7 +37,7 @@ public class RouteController {
 	}
 	
 	
-	@DeleteMapping("/deleteRoute/admin/{routeId}")
+	@DeleteMapping("/route/admin/{routeId}")
 	public ResponseEntity<Route> DeleteRoute(@PathVariable("routeId") Integer routeId,@RequestParam(required = false) String key) throws RouteException, AdminException{
 		
 		Route route = routeService.deleteRoute(routeId,key);
