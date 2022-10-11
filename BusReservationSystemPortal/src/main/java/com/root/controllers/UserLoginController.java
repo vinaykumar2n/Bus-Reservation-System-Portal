@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.root.DTO.UserLoginDTO;
 import com.root.exceptions.LoginException;
+import com.root.models.CurrentUserSession;
 import com.root.services.UserLoginService;
 
 @RestController
@@ -21,11 +22,11 @@ public class UserLoginController {
 	private UserLoginService userLogin;
 	
 	@PostMapping("/login/user")
-	public ResponseEntity<String> logInUser(@Valid @RequestBody UserLoginDTO dto) throws LoginException {
+	public ResponseEntity<CurrentUserSession> logInUser(@Valid @RequestBody UserLoginDTO dto) throws LoginException {
 		
-		String result = userLogin.logIntoUserAccount(dto);
+		CurrentUserSession result = userLogin.logIntoUserAccount(dto);
 		
-		return new ResponseEntity<String>(result,HttpStatus.ACCEPTED );
+		return new ResponseEntity<CurrentUserSession>(result,HttpStatus.ACCEPTED );
 		
 	}
 	

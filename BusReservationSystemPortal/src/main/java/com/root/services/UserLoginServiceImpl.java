@@ -25,7 +25,7 @@ public class UserLoginServiceImpl implements UserLoginService{
 	private UserSessionDao userSessionDao;
 
 	@Override
-	public String logIntoUserAccount(UserLoginDTO dto) throws LoginException {
+	public CurrentUserSession logIntoUserAccount(UserLoginDTO dto) throws LoginException {
 
 		User existingUser= userDao.findByMobileNumber(dto.getMobileNumber());
 		
@@ -48,7 +48,7 @@ public class UserLoginServiceImpl implements UserLoginService{
 			
 			userSessionDao.save(currentUserSession);
 
-			return currentUserSession.toString();
+			return currentUserSession;
 		}
 		else
 			throw new LoginException("Please Enter a valid password!");
