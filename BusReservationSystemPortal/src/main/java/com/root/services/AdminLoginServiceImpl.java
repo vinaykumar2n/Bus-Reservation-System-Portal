@@ -26,7 +26,7 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 	private AdminSessionDao adminSessionDao;
 
 	@Override
-	public String logIntoAdminAccount(AdminLoginDTO dto) throws LoginException {
+	public CurrentAdminSession logIntoAdminAccount(AdminLoginDTO dto) throws LoginException {
 
 		Admin existingAdmin= adminDao.findByMobileNumber(dto.getMobileNumber());
 		
@@ -49,7 +49,7 @@ public class AdminLoginServiceImpl implements AdminLoginService{
 			
 			adminSessionDao.save(currentAdminSession);
 
-			return currentAdminSession.toString();
+			return currentAdminSession;
 		}
 		else
 			throw new LoginException("Please Enter a valid password!");

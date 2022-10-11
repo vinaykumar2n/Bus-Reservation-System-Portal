@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.root.DTO.AdminLoginDTO;
 import com.root.exceptions.LoginException;
+import com.root.models.CurrentAdminSession;
 import com.root.services.AdminLoginService;
 
 @RestController
@@ -21,11 +22,11 @@ public class AdminLoginController {
 	private AdminLoginService adminLogin;
 	
 	@PostMapping("/login/admin")
-	public ResponseEntity<String> logInAdmin(@Valid @RequestBody AdminLoginDTO dto) throws LoginException {
+	public ResponseEntity<CurrentAdminSession> logInAdmin(@Valid @RequestBody AdminLoginDTO dto) throws LoginException {
 		
-		String result = adminLogin.logIntoAdminAccount(dto);
+		CurrentAdminSession result = adminLogin.logIntoAdminAccount(dto);
 		
-		return new ResponseEntity<String>(result,HttpStatus.ACCEPTED );
+		return new ResponseEntity<CurrentAdminSession>(result,HttpStatus.ACCEPTED );
 		
 	}
 	
